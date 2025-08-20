@@ -68,13 +68,18 @@ class DiffGenerator:
     def _create_change_entry(self, file_path: Path, change_type: str) -> Dict[str, Any]:
         """Create a change entry for added/removed files"""
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
+            # Use utf-8-sig to handle BOM (Byte Order Mark) from PowerShell exports
+            with open(file_path, 'r', encoding='utf-8-sig') as f:
                 data = json.load(f)
+            
+            # Handle both lowercase (Graph API) and PascalCase (PowerShell) property names
+            display_name = data.get('displayName') or data.get('DisplayName', 'Unknown')
+            object_id = data.get('id') or data.get('Id', 'Unknown')
             
             return {
                 "objectType": self._get_object_type(file_path),
-                "displayName": data.get('displayName', 'Unknown'),
-                "objectId": data.get('id', 'Unknown'),
+                "displayName": display_name,
+                "objectId": object_id,
                 "changeType": change_type
             }
         except Exception as e:
@@ -89,10 +94,11 @@ class DiffGenerator:
     def _compare_files(self, old_file: Path, new_file: Path) -> Optional[Dict[str, Any]]:
         """Compare two JSON files and return differences"""
         try:
-            with open(old_file, 'r', encoding='utf-8') as f:
+            # Use utf-8-sig to handle BOM (Byte Order Mark) from PowerShell exports
+            with open(old_file, 'r', encoding='utf-8-sig') as f:
                 old_data = json.load(f)
             
-            with open(new_file, 'r', encoding='utf-8') as f:
+            with open(new_file, 'r', encoding='utf-8-sig') as f:
                 new_data = json.load(f)
             
             # Use DeepDiff for detailed comparison
@@ -100,10 +106,14 @@ class DiffGenerator:
                            exclude_paths=["root['lastModifiedDateTime']"])
             
             if diff:
+                # Handle both lowercase (Graph API) and PascalCase (PowerShell) property names
+                display_name = new_data.get('displayName') or new_data.get('DisplayName', 'Unknown')
+                object_id = new_data.get('id') or new_data.get('Id', 'Unknown')
+                
                 return {
                     "objectType": self._get_object_type(new_file),
-                    "displayName": new_data.get('displayName', 'Unknown'),
-                    "objectId": new_data.get('id', 'Unknown'),
+                    "displayName": display_name,
+                    "objectId": object_id,
                     "changes": self._format_deepdiff(diff)
                 }
         except Exception as e:

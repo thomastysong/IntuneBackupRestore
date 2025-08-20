@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-08-20T17:48:24.388301Z",
+  "commit": null,
+  "added": [
+    {
+      "objectType": "ConfigurationProfiles",
+      "displayName": "Error reading file",
+      "objectId": "Unknown",
+      "changeType": "added"
+    },
+    {
+      "objectType": "ConfigurationProfiles",
+      "displayName": "Error reading file",
+      "objectId": "Unknown",
+      "changeType": "added"
+    },
+    {
+      "objectType": "CompliancePolicies",
+      "displayName": "Default compliance policy for Android",
+      "objectId": "7fb990e5-3d77-1b36-ba31-9d1fa4908776",
+      "changeType": "added"
+    },
+    {
+      "objectType": "ConfigurationProfiles",
+      "displayName": "Error reading file",
+      "objectId": "Unknown",
+      "changeType": "added"
+    }
+  ],
+  "removed": [],
+  "modified": []
+}

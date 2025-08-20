@@ -48,7 +48,24 @@ function Export-ConfigurationProfiles {
                 $fileName = "$($profile.DisplayName -replace '[^\w\s-]', '_')_$($profile.Id).json"
                 $filePath = Join-Path $ExportPath $fileName
                 
-                $exportProfile | ConvertTo-Json -Depth 10 | Out-File -FilePath $filePath -Encoding UTF8
+                # Convert to JSON with proper formatting to match Graph API output
+                $json = $exportProfile | ConvertTo-Json -Depth 10 -Compress
+                
+                # Fix property names to match Graph API format (lowercase first letter)
+                $json = $json -replace '"Id":', '"id":'
+                $json = $json -replace '"DisplayName":', '"displayName":'
+                $json = $json -replace '"Description":', '"description":'
+                $json = $json -replace '"CreatedDateTime":', '"createdDateTime":'
+                $json = $json -replace '"LastModifiedDateTime":', '"lastModifiedDateTime":'
+                $json = $json -replace '"Version":', '"version":'
+                
+                # Pretty print if not compressed
+                if ($env:EXPORT_PRETTY_PRINT -ne 'false') {
+                    $parsed = $json | ConvertFrom-Json
+                    $json = $parsed | ConvertTo-Json -Depth 10
+                }
+                
+                $json | Out-File -FilePath $filePath -Encoding UTF8
                 
                 $exportedProfiles += [PSCustomObject]@{
                     Id = $profile.Id
