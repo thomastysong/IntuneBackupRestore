@@ -1,0 +1,163 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "intune-changes",
+    "title": "Intune Configuration Changes",
+    "tags": ["intune", "backup", "changes"],
+    "timezone": "browser",
+    "schemaVersion": 38,
+    "version": 0,
+    "refresh": "5m",
+    "panels": [
+      {
+        "datasource": {
+          "type": "simplejson",
+          "uid": "intune-change-logs"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "auto",
+              "displayMode": "auto"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "showHeader": true
+        },
+        "pluginVersion": "9.1.0",
+        "targets": [
+          {
+            "refId": "A",
+            "target": "changes"
+          }
+        ],
+        "title": "Recent Changes",
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "simplejson",
+          "uid": "intune-change-logs"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "tooltip": false,
+                "viz": false,
+                "legend": false
+              }
+            },
+            "mappings": []
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "pieType": "pie",
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "refId": "A",
+            "target": "change_summary"
+          }
+        ],
+        "title": "Change Summary",
+        "type": "piechart"
+      },
+      {
+        "datasource": {
+          "type": "simplejson",
+          "uid": "intune-change-logs"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 5
+                },
+                {
+                  "color": "red",
+                  "value": 10
+                }
+              ]
+            },
+            "unit": "short"
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        },
+        "id": 3,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "values": false,
+            "calcs": ["lastNotNull"],
+            "fields": ""
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "9.1.0",
+        "targets": [
+          {
+            "refId": "A",
+            "target": "total_changes"
+          }
+        ],
+        "title": "Total Changes This Week",
+        "type": "gauge"
+      }
+    ]
+  }
+}

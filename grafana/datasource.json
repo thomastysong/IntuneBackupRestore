@@ -1,0 +1,11 @@
+{
+  "name": "Intune Change Logs",
+  "type": "simplejson",
+  "access": "proxy",
+  "url": "https://api.github.com/repos/YOUR_ORG/IntuneBackupRestore/contents/change_logs/latest.json",
+  "jsonData": {
+    "headers": {
+      "Authorization": "Bearer YOUR_GITHUB_TOKEN"
+    }
+  }
+}
