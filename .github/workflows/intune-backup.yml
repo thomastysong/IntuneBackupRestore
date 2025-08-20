@@ -27,7 +27,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # Need previous commit for diff
+          fetch-depth: 0  # Full history for better diff support
+          persist-credentials: true  # Keep credentials for push
       
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -45,19 +46,24 @@ jobs:
           build.cmd ExportAll
       
       - name: Commit changes
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          git config --local user.email "intune-backup@github.com"
-          git config --local user.name "Intune Backup Bot"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           
           git add exports/ change_logs/
           
           # Check if there are changes to commit
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Intune backup: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          $hasChanges = git diff --staged --quiet
+          if ($LASTEXITCODE -eq 0) {
+            Write-Host "No changes to commit"
+          } else {
+            $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss UTC" -AsUTC
+            git commit -m "Intune backup: $timestamp"
             git push
-          fi
+          }
       
       - name: Upload artifacts
         if: always()
