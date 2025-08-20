@@ -41,7 +41,7 @@ function Export-ConfigurationProfiles {
                 # Add assignments if requested
                 if ($IncludeAssignments) {
                     $assignments = Get-MgDeviceManagementDeviceConfigurationAssignment -DeviceConfigurationId $profile.Id
-                    $exportProfile | Add-Member -NotePropertyName 'assignments' -NotePropertyValue $assignments
+                    $exportProfile | Add-Member -NotePropertyName 'assignments' -NotePropertyValue $assignments -Force
                 }
                 
                 # Save to file

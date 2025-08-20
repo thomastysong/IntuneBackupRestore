@@ -39,32 +39,10 @@ jobs:
         run: |
           build.cmd Install
       
-      - name: Run compliance policies export
+      - name: Run all exports and generate change log
+        shell: cmd
         run: |
-          python -m src.export_runner --module compliance_policies
-      
-      - name: Run configuration profiles export
-        shell: pwsh
-        run: |
-          Import-Module ./src/modules/powershell/Connect-GraphAPI.ps1
-          Import-Module ./src/modules/powershell/Export-ConfigurationProfiles.ps1
-          
-          Connect-GraphAPI
-          Export-ConfigurationProfiles
-      
-      - name: Run applications export
-        run: |
-          python -m src.export_runner --module applications
-      
-      - name: Run scripts export
-        shell: pwsh
-        run: |
-          Import-Module ./src/modules/powershell/Export-IntuneScripts.ps1
-          Export-IntuneScripts
-      
-      - name: Generate change log
-        run: |
-          python -m src.generate_changelog
+          build.cmd ExportAll
       
       - name: Commit changes
         run: |
