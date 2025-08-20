@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-08-20T15:14:36.214601Z",
+  "commit": null,
+  "added": [
+    {
+      "objectType": "ConfigurationProfiles",
+      "displayName": "Fast Ring",
+      "objectId": "e0492bb8-c671-4e04-a80d-4ef1ae36c24c",
+      "changeType": "added"
+    },
+    {
+      "objectType": "ConfigurationProfiles",
+      "displayName": "Windows 10",
+      "objectId": "df85068b-a6d7-45af-8453-2c4047d9a341",
+      "changeType": "added"
+    },
+    {
+      "objectType": "ConfigurationProfiles",
+      "displayName": "Custom OMA-URI Settings",
+      "objectId": "e3889a67-c638-4e64-9195-830135f64afc",
+      "changeType": "added"
+    }
+  ],
+  "removed": [],
+  "modified": []
+}

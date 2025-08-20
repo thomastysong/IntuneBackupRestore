@@ -1,0 +1,40 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#deviceManagement/deviceConfigurations/$entity",
+  "@odata.type": "#microsoft.graph.windows10CustomConfiguration",
+  "id": "e3889a67-c638-4e64-9195-830135f64afc",
+  "lastModifiedDateTime": "2020-05-15T16:21:21.3672124Z",
+  "createdDateTime": "2020-05-05T17:58:47.9126727Z",
+  "description": null,
+  "displayName": "Custom OMA-URI Settings",
+  "version": 2,
+  "omaSettings": [
+    {
+      "@odata.type": "#microsoft.graph.omaSettingBoolean",
+      "displayName": "SkipUserStatusPage",
+      "description": null,
+      "omaUri": "./Vendor/MSFT/DMClient/Provider/MS DM",
+      "value": true
+    },
+    {
+      "@odata.type": "#microsoft.graph.omaSettingString",
+      "displayName": "DailyRebootSchedule",
+      "description": "Restarts this device daily",
+      "omaUri": "./Vendor/MSFT/Reboot/Schedule/DailyRecurrent",
+      "value": "****"
+    }
+  ],
+  "assignments": [
+    {
+      "id": "e3889a67-c638-4e64-9195-830135f64afc_acacacac-9df4-4c7d-9d50-4ef0226f57a9",
+      "target": {
+        "@odata.type": "#microsoft.graph.allLicensedUsersAssignmentTarget"
+      }
+    },
+    {
+      "id": "e3889a67-c638-4e64-9195-830135f64afc_adadadad-808e-44e2-905a-0b7873a8a531",
+      "target": {
+        "@odata.type": "#microsoft.graph.allDevicesAssignmentTarget"
+      }
+    }
+  ]
+}

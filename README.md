@@ -49,6 +49,17 @@ IntuneBackupRestore/
 └── scripts/               # Setup and utility scripts
 ```
 
+## Building and Running
+
+For detailed build instructions and dependency management, see [BUILD.md](BUILD.md).
+
+**Quick Start:**
+```batch
+# Install dependencies and run exports
+.\build.cmd Install
+.\build.cmd ExportAll
+```
+
 ## Development
 
 See [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md) for detailed implementation guide.
