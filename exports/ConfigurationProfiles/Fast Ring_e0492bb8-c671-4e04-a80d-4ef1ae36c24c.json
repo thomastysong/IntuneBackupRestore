@@ -1,60 +1,51 @@
-{
-  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#deviceManagement/deviceConfigurations/$entity",
-  "@odata.type": "#microsoft.graph.windowsUpdateForBusinessConfiguration",
-  "id": "e0492bb8-c671-4e04-a80d-4ef1ae36c24c",
-  "lastModifiedDateTime": "2020-05-15T15:06:48.3187879Z",
-  "createdDateTime": "2020-05-15T15:06:48.3187879Z",
-  "description": "",
-  "displayName": "Fast Ring",
-  "version": 1,
-  "deliveryOptimizationMode": "userDefined",
-  "prereleaseFeatures": "userDefined",
-  "automaticUpdateMode": "autoInstallAndRebootWithoutEndUserControl",
-  "microsoftUpdateServiceAllowed": true,
-  "driversExcluded": false,
-  "installationSchedule": null,
-  "qualityUpdatesDeferralPeriodInDays": 0,
-  "featureUpdatesDeferralPeriodInDays": 0,
-  "qualityUpdatesPaused": false,
-  "featureUpdatesPaused": false,
-  "qualityUpdatesPauseExpiryDateTime": "0001-01-01T00:00:00Z",
-  "featureUpdatesPauseExpiryDateTime": "0001-01-01T00:00:00Z",
-  "businessReadyUpdatesOnly": "windowsInsiderBuildFast",
-  "skipChecksBeforeRestart": false,
-  "updateWeeks": null,
-  "qualityUpdatesPauseStartDate": null,
-  "featureUpdatesPauseStartDate": null,
-  "featureUpdatesRollbackWindowInDays": 10,
-  "qualityUpdatesWillBeRolledBack": null,
-  "featureUpdatesWillBeRolledBack": null,
-  "qualityUpdatesRollbackStartDateTime": "0001-01-01T00:00:00Z",
-  "featureUpdatesRollbackStartDateTime": "0001-01-01T00:00:00Z",
-  "engagedRestartDeadlineInDays": null,
-  "engagedRestartSnoozeScheduleInDays": null,
-  "engagedRestartTransitionScheduleInDays": null,
-  "deadlineForFeatureUpdatesInDays": null,
-  "deadlineForQualityUpdatesInDays": null,
-  "deadlineGracePeriodInDays": null,
-  "postponeRebootUntilAfterDeadline": null,
-  "autoRestartNotificationDismissal": "user",
-  "scheduleRestartWarningInHours": 2,
-  "scheduleImminentRestartWarningInMinutes": 15,
-  "userPauseAccess": "enabled",
-  "userWindowsUpdateScanAccess": "enabled",
-  "updateNotificationLevel": "defaultNotifications",
-  "allowWindows11Upgrade": false,
-  "assignments": [
-    {
-      "id": "e0492bb8-c671-4e04-a80d-4ef1ae36c24c_acacacac-9df4-4c7d-9d50-4ef0226f57a9",
-      "target": {
-        "@odata.type": "#microsoft.graph.allLicensedUsersAssignmentTarget"
-      }
-    },
-    {
-      "id": "e0492bb8-c671-4e04-a80d-4ef1ae36c24c_adadadad-808e-44e2-905a-0b7873a8a531",
-      "target": {
-        "@odata.type": "#microsoft.graph.allDevicesAssignmentTarget"
-      }
-    }
-  ]
+﻿{
+    "CreatedDateTime":  "\/Date(1589555208318)\/",
+    "Description":  "",
+    "DeviceSettingStateSummaries":  null,
+    "DeviceStatusOverview":  {
+                                 "ConfigurationVersion":  null,
+                                 "ErrorCount":  null,
+                                 "FailedCount":  null,
+                                 "Id":  null,
+                                 "LastUpdateDateTime":  null,
+                                 "NotApplicableCount":  null,
+                                 "PendingCount":  null,
+                                 "SuccessCount":  null
+                             },
+    "DeviceStatuses":  null,
+    "DisplayName":  "Fast Ring",
+    "Id":  "e0492bb8-c671-4e04-a80d-4ef1ae36c24c",
+    "LastModifiedDateTime":  "\/Date(1589555208318)\/",
+    "UserStatusOverview":  {
+                               "ConfigurationVersion":  null,
+                               "ErrorCount":  null,
+                               "FailedCount":  null,
+                               "Id":  null,
+                               "LastUpdateDateTime":  null,
+                               "NotApplicableCount":  null,
+                               "PendingCount":  null,
+                               "SuccessCount":  null
+                           },
+    "UserStatuses":  null,
+    "Version":  1,
+    "assignments":  [
+                        {
+                            "Id":  "e0492bb8-c671-4e04-a80d-4ef1ae36c24c_acacacac-9df4-4c7d-9d50-4ef0226f57a9",
+                            "Target":  {
+
+                                       },
+                            "AdditionalProperties":  {
+
+                                                     }
+                        },
+                        {
+                            "Id":  "e0492bb8-c671-4e04-a80d-4ef1ae36c24c_adadadad-808e-44e2-905a-0b7873a8a531",
+                            "Target":  {
+
+                                       },
+                            "AdditionalProperties":  {
+
+                                                     }
+                        }
+                    ]
 }
