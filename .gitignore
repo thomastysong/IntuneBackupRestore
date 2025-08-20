@@ -1,0 +1,69 @@
+# Environment and secrets
+.env
+*.env.*
+.env.local
+.env.production
+
+# Credentials
+*.pfx
+*.cer
+*.key
+client_secret.txt
+secrets/
+
+# Test data
+test_exports/
+temp/
+tmp/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+ENV/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+
+# PowerShell
+*.ps1.bak
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Build artifacts
+build/
+out/
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Local test exports (don't commit actual exports during development)
+exports_test/
+exports_local/
