@@ -1,0 +1,96 @@
+name: Intune Configuration Backup
+
+on:
+  schedule:
+    # Run every Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+    inputs:
+      include_beta_endpoints:
+        description: 'Include beta Graph API endpoints'
+        required: false
+        type: boolean
+        default: false
+
+env:
+  AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+jobs:
+  backup:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Need previous commit for diff
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Set up PowerShell modules
+        shell: pwsh
+        run: |
+          ./scripts/Install-Requirements.ps1
+      
+      - name: Run compliance policies export
+        run: |
+          python -m src.export_runner --module compliance_policies
+      
+      - name: Run configuration profiles export
+        shell: pwsh
+        run: |
+          Import-Module ./src/modules/powershell/Connect-GraphAPI.ps1
+          Import-Module ./src/modules/powershell/Export-ConfigurationProfiles.ps1
+          
+          Connect-GraphAPI
+          Export-ConfigurationProfiles
+      
+      - name: Run applications export
+        run: |
+          python -m src.export_runner --module applications
+      
+      - name: Run scripts export
+        shell: pwsh
+        run: |
+          Import-Module ./src/modules/powershell/Export-IntuneScripts.ps1
+          Export-IntuneScripts
+      
+      - name: Generate change log
+        run: |
+          python -m src.generate_changelog
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "intune-backup@github.com"
+          git config --local user.name "Intune Backup Bot"
+          
+          git add exports/ change_logs/
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Intune backup: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+          fi
+      
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: backup-logs
+          path: |
+            logs/
+            change_logs/latest.json
