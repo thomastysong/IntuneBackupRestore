@@ -1,36 +1,36 @@
 ﻿{
-    "CreatedDateTime":  "\/Date(1589561599158)\/",
-    "Description":  null,
+    "createdDateTime":  "\/Date(1589561599158)\/",
+    "description":  null,
     "DeviceSettingStateSummaries":  null,
     "DeviceStatusOverview":  {
                                  "ConfigurationVersion":  null,
                                  "ErrorCount":  null,
                                  "FailedCount":  null,
-                                 "Id":  null,
+                                 "id":  null,
                                  "LastUpdateDateTime":  null,
                                  "NotApplicableCount":  null,
                                  "PendingCount":  null,
                                  "SuccessCount":  null
                              },
     "DeviceStatuses":  null,
-    "DisplayName":  "Windows 10",
-    "Id":  "df85068b-a6d7-45af-8453-2c4047d9a341",
-    "LastModifiedDateTime":  "\/Date(1589561599628)\/",
+    "displayName":  "Windows 10",
+    "id":  "df85068b-a6d7-45af-8453-2c4047d9a341",
+    "lastModifiedDateTime":  "\/Date(1589561599628)\/",
     "UserStatusOverview":  {
                                "ConfigurationVersion":  null,
                                "ErrorCount":  null,
                                "FailedCount":  null,
-                               "Id":  null,
+                               "id":  null,
                                "LastUpdateDateTime":  null,
                                "NotApplicableCount":  null,
                                "PendingCount":  null,
                                "SuccessCount":  null
                            },
     "UserStatuses":  null,
-    "Version":  2,
+    "version":  2,
     "assignments":  [
                         {
-                            "Id":  "df85068b-a6d7-45af-8453-2c4047d9a341_acacacac-9df4-4c7d-9d50-4ef0226f57a9",
+                            "id":  "df85068b-a6d7-45af-8453-2c4047d9a341_acacacac-9df4-4c7d-9d50-4ef0226f57a9",
                             "Target":  {
 
                                        },
@@ -39,7 +39,7 @@
                                                      }
                         },
                         {
-                            "Id":  "df85068b-a6d7-45af-8453-2c4047d9a341_adadadad-808e-44e2-905a-0b7873a8a531",
+                            "id":  "df85068b-a6d7-45af-8453-2c4047d9a341_adadadad-808e-44e2-905a-0b7873a8a531",
                             "Target":  {
 
                                        },

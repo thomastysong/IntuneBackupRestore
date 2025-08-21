@@ -1,36 +1,36 @@
 ﻿{
-    "CreatedDateTime":  "\/Date(1588701527912)\/",
-    "Description":  null,
+    "createdDateTime":  "\/Date(1588701527912)\/",
+    "description":  null,
     "DeviceSettingStateSummaries":  null,
     "DeviceStatusOverview":  {
                                  "ConfigurationVersion":  null,
                                  "ErrorCount":  null,
                                  "FailedCount":  null,
-                                 "Id":  null,
+                                 "id":  null,
                                  "LastUpdateDateTime":  null,
                                  "NotApplicableCount":  null,
                                  "PendingCount":  null,
                                  "SuccessCount":  null
                              },
     "DeviceStatuses":  null,
-    "DisplayName":  "Custom OMA-URI Settings",
-    "Id":  "e3889a67-c638-4e64-9195-830135f64afc",
-    "LastModifiedDateTime":  "\/Date(1589559681367)\/",
+    "displayName":  "Custom OMA-URI Settings",
+    "id":  "e3889a67-c638-4e64-9195-830135f64afc",
+    "lastModifiedDateTime":  "\/Date(1589559681367)\/",
     "UserStatusOverview":  {
                                "ConfigurationVersion":  null,
                                "ErrorCount":  null,
                                "FailedCount":  null,
-                               "Id":  null,
+                               "id":  null,
                                "LastUpdateDateTime":  null,
                                "NotApplicableCount":  null,
                                "PendingCount":  null,
                                "SuccessCount":  null
                            },
     "UserStatuses":  null,
-    "Version":  2,
+    "version":  2,
     "assignments":  [
                         {
-                            "Id":  "e3889a67-c638-4e64-9195-830135f64afc_acacacac-9df4-4c7d-9d50-4ef0226f57a9",
+                            "id":  "e3889a67-c638-4e64-9195-830135f64afc_acacacac-9df4-4c7d-9d50-4ef0226f57a9",
                             "Target":  {
 
                                        },
@@ -39,7 +39,7 @@
                                                      }
                         },
                         {
-                            "Id":  "e3889a67-c638-4e64-9195-830135f64afc_adadadad-808e-44e2-905a-0b7873a8a531",
+                            "id":  "e3889a67-c638-4e64-9195-830135f64afc_adadadad-808e-44e2-905a-0b7873a8a531",
                             "Target":  {
 
                                        },

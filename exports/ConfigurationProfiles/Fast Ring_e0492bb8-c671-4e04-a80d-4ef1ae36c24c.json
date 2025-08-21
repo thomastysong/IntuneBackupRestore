@@ -1,36 +1,36 @@
 ﻿{
-    "CreatedDateTime":  "\/Date(1589555208318)\/",
-    "Description":  "",
+    "createdDateTime":  "\/Date(1589555208318)\/",
+    "description":  "",
     "DeviceSettingStateSummaries":  null,
     "DeviceStatusOverview":  {
                                  "ConfigurationVersion":  null,
                                  "ErrorCount":  null,
                                  "FailedCount":  null,
-                                 "Id":  null,
+                                 "id":  null,
                                  "LastUpdateDateTime":  null,
                                  "NotApplicableCount":  null,
                                  "PendingCount":  null,
                                  "SuccessCount":  null
                              },
     "DeviceStatuses":  null,
-    "DisplayName":  "Fast Ring",
-    "Id":  "e0492bb8-c671-4e04-a80d-4ef1ae36c24c",
-    "LastModifiedDateTime":  "\/Date(1589555208318)\/",
+    "displayName":  "Fast Ring",
+    "id":  "e0492bb8-c671-4e04-a80d-4ef1ae36c24c",
+    "lastModifiedDateTime":  "\/Date(1589555208318)\/",
     "UserStatusOverview":  {
                                "ConfigurationVersion":  null,
                                "ErrorCount":  null,
                                "FailedCount":  null,
-                               "Id":  null,
+                               "id":  null,
                                "LastUpdateDateTime":  null,
                                "NotApplicableCount":  null,
                                "PendingCount":  null,
                                "SuccessCount":  null
                            },
     "UserStatuses":  null,
-    "Version":  1,
+    "version":  1,
     "assignments":  [
                         {
-                            "Id":  "e0492bb8-c671-4e04-a80d-4ef1ae36c24c_acacacac-9df4-4c7d-9d50-4ef0226f57a9",
+                            "id":  "e0492bb8-c671-4e04-a80d-4ef1ae36c24c_acacacac-9df4-4c7d-9d50-4ef0226f57a9",
                             "Target":  {
 
                                        },
@@ -39,7 +39,7 @@
                                                      }
                         },
                         {
-                            "Id":  "e0492bb8-c671-4e04-a80d-4ef1ae36c24c_adadadad-808e-44e2-905a-0b7873a8a531",
+                            "id":  "e0492bb8-c671-4e04-a80d-4ef1ae36c24c_adadadad-808e-44e2-905a-0b7873a8a531",
                             "Target":  {
 
                                        },
