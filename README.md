@@ -19,6 +19,8 @@ The solution uses:
 - **GitHub Actions** for scheduled automation
 - **Git** for version control and history
 
+![Intune Backup Architecture](docs/image.png)
+
 ## Quick Start
 
 1. **Set up Azure AD App Registration**
