@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from src.utils.config import Config
 from src.utils.auth import GraphAuthenticator
 from src.modules.python.export_compliance_policies import CompliancePolicyExporter
+from src.modules.python.export_applications import ApplicationExporter
 
 
 def setup_logging():
@@ -32,9 +33,11 @@ def run_compliance_policies_export(config: Config, auth: GraphAuthenticator):
 
 
 def run_applications_export(config: Config, auth: GraphAuthenticator):
-    """Run applications export - placeholder for now"""
-    logging.warning("Applications export not yet implemented")
-    return []
+    """Run applications export"""
+    exporter = ApplicationExporter(config, auth)
+    apps = exporter.export_all()
+    logging.info(f"Exported {len(apps)} applications")
+    return apps
 
 
 def main():
