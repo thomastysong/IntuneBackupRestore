@@ -1,0 +1,58 @@
+{
+  "displayName": "7-Zip 19.00 (x64)",
+  "description": "7-Zip is a free and open-source file archiver with a high compression ratio",
+  "publisher": "Igor Pavlov",
+  "version": "19.00",
+  "fileName": "7z1900-x64.msi",
+  "installCommandLine": "msiexec /i 7z1900-x64.msi /quiet /norestart",
+  "uninstallCommandLine": "msiexec /x {23170F69-40C1-2702-1900-000001000000} /quiet /norestart",
+  "setupFilePath": "7z1900-x64.msi",
+  "minimumFreeDiskSpaceInMB": 10,
+  "minimumMemoryInMB": 128,
+  "minimumNumberOfProcessors": 1,
+  "minimumCpuSpeedInMHz": 1000,
+  "applicableArchitectures": ["x64"],
+  "minimumSupportedOperatingSystem": {
+    "v10_0": true
+  },
+  "requiresReboot": false,
+  "msiInformation": {
+    "productCode": "{23170F69-40C1-2702-1900-000001000000}",
+    "productVersion": "19.00.00.0",
+    "upgradeCode": "{23170F69-40C1-2701-0000-000004000000}",
+    "requiresReboot": false,
+    "packageType": "perMachine",
+    "productName": "7-Zip 19.00 (x64 edition)"
+  },
+  "detectionRules": [
+    {
+      "@odata.type": "#microsoft.graph.win32LobAppProductCodeDetectionRule",
+      "productCode": "{23170F69-40C1-2702-1900-000001000000}",
+      "productVersionOperator": "notConfigured"
+    }
+  ],
+  "requirementRules": [],
+  "returnCodes": [
+    {
+      "returnCode": 0,
+      "type": "success"
+    },
+    {
+      "returnCode": 1641,
+      "type": "hardReboot"
+    },
+    {
+      "returnCode": 3010,
+      "type": "softReboot"
+    }
+  ],
+  "assignments": [
+    {
+      "intent": "available",
+      "target": {
+        "@odata.type": "#microsoft.graph.groupAssignmentTarget"
+      },
+      "targetGroupName": "All Users"
+    }
+  ]
+}

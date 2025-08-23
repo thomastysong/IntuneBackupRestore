@@ -1,0 +1,67 @@
+{
+  "displayName": "Google Chrome Enterprise",
+  "description": "Google Chrome is a fast, secure, and free web browser built for the modern web",
+  "publisher": "Google LLC",
+  "version": "118.0.5993.89",
+  "fileName": "ChromeStandaloneSetup64.exe",
+  "installCommandLine": "ChromeStandaloneSetup64.exe /silent /install",
+  "uninstallCommandLine": "\"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\" --uninstall --force-uninstall",
+  "setupFilePath": "ChromeStandaloneSetup64.exe",
+  "minimumFreeDiskSpaceInMB": 350,
+  "minimumMemoryInMB": 512,
+  "minimumNumberOfProcessors": 1,
+  "minimumCpuSpeedInMHz": 1000,
+  "applicableArchitectures": ["x64"],
+  "minimumSupportedOperatingSystem": {
+    "v10_0": true
+  },
+  "requiresReboot": false,
+  "detectionRules": [
+    {
+      "@odata.type": "#microsoft.graph.win32LobAppFileSystemDetectionRule",
+      "path": "C:\\Program Files\\Google\\Chrome\\Application",
+      "fileOrFolderName": "chrome.exe",
+      "check32BitOn64System": false,
+      "detectionType": "exists",
+      "operator": "notConfigured",
+      "detectionValue": null
+    }
+  ],
+  "requirementRules": [
+    {
+      "@odata.type": "#microsoft.graph.win32LobAppFileSystemRequirementRule",
+      "path": "%ProgramFiles%",
+      "fileOrFolderName": "",
+      "check32BitOn64System": false,
+      "detectionType": "exists",
+      "operator": "notConfigured",
+      "detectionValue": null
+    }
+  ],
+  "returnCodes": [
+    {
+      "returnCode": 0,
+      "type": "success"
+    },
+    {
+      "returnCode": 3010,
+      "type": "softReboot"
+    }
+  ],
+  "assignments": [
+    {
+      "intent": "required",
+      "target": {
+        "@odata.type": "#microsoft.graph.groupAssignmentTarget"
+      },
+      "targetGroupName": "All Windows Devices"
+    },
+    {
+      "intent": "available",
+      "target": {
+        "@odata.type": "#microsoft.graph.groupAssignmentTarget"
+      },
+      "targetGroupName": "Chrome Users"
+    }
+  ]
+}
