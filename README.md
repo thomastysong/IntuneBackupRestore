@@ -6,7 +6,9 @@ This repository contains an automated solution for backing up Microsoft Intune c
 
 This system automatically:
 - Exports all Microsoft Intune configurations via Microsoft Graph API
-- Stores configurations as JSON/YAML files in Git
+- Backs up Win32 applications, configuration profiles, compliance policies, and scripts
+- Stores configurations as JSON files in Git with version control
+- Supports importing configurations back to Intune (restore/migration scenarios)
 - Tracks changes between backups with detailed change logs
 - Runs weekly via GitHub Actions (with manual trigger option)
 - Provides integration points for monitoring (e.g., Grafana)
@@ -21,11 +23,33 @@ The solution uses:
 
 ![Intune Backup Architecture](docs/image.png)
 
+## Supported Configurations
+
+### Export Support
+- ✅ **Configuration Profiles** - Device configuration policies
+- ✅ **Compliance Policies** - Device compliance rules  
+- ✅ **Applications** - Win32 LOB applications (metadata and assignments)
+- ✅ **Scripts** - PowerShell scripts, Shell scripts, and Proactive Remediations
+- ✅ **Assignments** - Group assignments for all configurations
+
+### Import Support  
+- ✅ **Applications** - Import Win32 apps from manifest + source files
+- 🔄 **Configuration Profiles** - Coming soon
+- 🔄 **Compliance Policies** - Coming soon
+- 🔄 **Scripts** - Coming soon
+
+> **Note:** Application content (.intunewin files) cannot be exported via Graph API. Original installer files must be maintained separately for re-import.
+
 ## Quick Start
 
 1. **Set up Azure AD App Registration**
-   - Create app registration with Graph API read permissions
-   - Required permissions: `DeviceManagementConfiguration.Read.All`, `DeviceManagementRBAC.Read.All`
+   - Create app registration with Graph API permissions
+   - Required permissions: 
+     - `DeviceManagementConfiguration.Read.All` - For configuration profiles
+     - `DeviceManagementRBAC.Read.All` - For RBAC roles
+     - `DeviceManagementApps.Read.All` - For applications export
+     - `DeviceManagementApps.ReadWrite.All` - For applications import
+     - `DeviceManagementManagedDevices.Read.All` - For scripts
 
 2. **Configure GitHub Secrets**
    - `AZURE_TENANT_ID`
@@ -57,9 +81,27 @@ For detailed build instructions and dependency management, see [BUILD.md](BUILD.
 
 **Quick Start:**
 ```batch
-# Install dependencies and run exports
+# Install dependencies and run all exports
 .\build.cmd Install
 .\build.cmd ExportAll
+
+# Export specific components
+.\build.cmd ExportApplications
+.\build.cmd ExportScripts  
+.\build.cmd ExportCompliance
+.\build.cmd ExportConfig
+```
+
+**Import Applications (PowerShell):**
+```powershell
+# Import the module
+Import-Module .\src\modules\powershell\Import-Applications.ps1
+
+# Connect to Graph API
+.\src\modules\powershell\Connect-GraphAPI.ps1
+
+# Import applications from export
+Import-Applications -ImportPath ".\exports\Applications" -SourceFilesPath "C:\AppSources"
 ```
 
 ## Development

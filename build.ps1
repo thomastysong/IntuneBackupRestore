@@ -8,7 +8,7 @@
     Designed to work on Windows Server, Windows 11, and minimal Windows images.
 
 .PARAMETER Task
-    The task to perform. Valid values: Install, Test, ExportCompliance, ExportConfig, ExportAll, Clean, Setup
+    The task to perform. Valid values: Install, Test, ExportCompliance, ExportConfig, ExportApplications, ExportScripts, ExportAll, Clean, Setup
 
 .EXAMPLE
     .\build.ps1 -Task Install
@@ -22,7 +22,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('Install', 'InstallPython', 'InstallPowerShell', 'Test', 'ExportCompliance', 'ExportConfig', 'ExportAll', 'Clean', 'Setup', 'Help')]
+    [ValidateSet('Install', 'InstallPython', 'InstallPowerShell', 'Test', 'ExportCompliance', 'ExportConfig', 'ExportApplications', 'ExportScripts', 'ExportAll', 'Clean', 'Setup', 'Help')]
     [string]$Task = 'Help'
 )
 
@@ -201,11 +201,40 @@ function Export-ConfigurationProfiles {
     Write-Success "Configuration profiles exported"
 }
 
+function Export-Applications {
+    Write-TaskHeader "Exporting applications"
+    
+    # Python module for applications
+    Write-Host "Using Python module for applications export..." -ForegroundColor Yellow
+    & $pythonCmd -m src.export_runner --module applications
+    
+    Write-Success "Applications exported"
+}
+
+function Export-Scripts {
+    Write-TaskHeader "Exporting scripts"
+    
+    # PowerShell module for scripts
+    Write-Host "Using PowerShell module for scripts export..." -ForegroundColor Yellow
+    
+    Import-Module "$PSScriptRoot\src\modules\powershell\Connect-GraphAPI.ps1" -Force
+    Import-Module "$PSScriptRoot\src\modules\powershell\Export-IntuneScripts.ps1" -Force
+    
+    if (Connect-GraphAPI) {
+        $scripts = Export-IntuneScripts -Verbose
+        Write-Host "Exported $($scripts.Count) scripts" -ForegroundColor Green
+    }
+    
+    Write-Success "Scripts exported"
+}
+
 function Export-All {
     Write-TaskHeader "Running all exports"
     
     Export-CompliancePolicies
     Export-ConfigurationProfiles
+    Export-Applications
+    Export-Scripts
     
     Write-Host "Generating change log..." -ForegroundColor Yellow
     & $pythonCmd -m src.generate_changelog
@@ -276,6 +305,8 @@ Available tasks:
   Test              - Run unit tests
   ExportCompliance  - Export compliance policies
   ExportConfig      - Export configuration profiles
+  ExportApplications - Export applications
+  ExportScripts     - Export scripts
   ExportAll         - Run all exports and generate change log
   Clean             - Clean temporary files
   Setup             - Setup development environment (install deps + create .env)
@@ -301,6 +332,8 @@ try {
         'Test' { Run-Tests }
         'ExportCompliance' { Export-CompliancePolicies }
         'ExportConfig' { Export-ConfigurationProfiles }
+        'ExportApplications' { Export-Applications }
+        'ExportScripts' { Export-Scripts }
         'ExportAll' { Export-All }
         'Clean' { Clean-Project }
         'Setup' { Setup-Environment }
