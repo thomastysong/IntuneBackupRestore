@@ -1,0 +1,135 @@
+name: Import Applications to Intune
+
+on:
+  workflow_dispatch:
+    inputs:
+      manifest_path:
+        description: 'Path to manifest file or directory'
+        required: false
+        default: './packages/manifests'
+      update_existing:
+        description: 'Update existing apps'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+  push:
+    paths:
+      - 'packages/manifests/*.json'
+    branches:
+      - main
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+env:
+  AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+jobs:
+  import-apps:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: true
+
+    - name: Setup PowerShell modules
+      shell: pwsh
+      run: |
+        # Install required PowerShell modules
+        Install-Module -Name Microsoft.Graph -Force -Scope CurrentUser
+        Install-Module -Name IntuneWin32App -Force -Scope CurrentUser
+        
+        # Import modules
+        Import-Module Microsoft.Graph.Authentication
+        Import-Module IntuneWin32App
+
+    - name: Connect to Microsoft Graph
+      shell: pwsh
+      run: |
+        # Load and test connection
+        . .\src\modules\powershell\Connect-GraphAPI.ps1
+        
+        if (Connect-GraphAPI) {
+          Write-Host "Successfully connected to Microsoft Graph" -ForegroundColor Green
+          $context = Get-MgContext
+          Write-Host "Tenant: $($context.TenantId)" -ForegroundColor Cyan
+        } else {
+          throw "Failed to connect to Microsoft Graph"
+        }
+
+    - name: Import Applications
+      shell: pwsh
+      run: |
+        # Load the import module
+        . .\src\modules\powershell\Import-Applications-Package.ps1
+        
+        # Determine manifest path
+        $manifestPath = "${{ github.event.inputs.manifest_path }}"
+        if ([string]::IsNullOrEmpty($manifestPath)) {
+          $manifestPath = ".\packages\manifests"
+        }
+        
+        # Determine update setting
+        $updateExisting = [bool]::Parse("${{ github.event.inputs.update_existing }}")
+        
+        Write-Host "Importing applications from: $manifestPath" -ForegroundColor Cyan
+        Write-Host "Update existing apps: $updateExisting" -ForegroundColor Cyan
+        
+        # Run import
+        try {
+          Import-Applications-Package `
+            -ManifestPath $manifestPath `
+            -UpdateExisting $updateExisting `
+            -CreateIntunewinPackages $true
+            
+          Write-Host "`nImport completed successfully!" -ForegroundColor Green
+        } catch {
+          Write-Error "Import failed: $_"
+          exit 1
+        }
+
+    - name: Generate Import Report
+      if: always()
+      shell: pwsh
+      run: |
+        # Create a simple report of what was imported
+        $reportPath = ".\import-report-$(Get-Date -Format 'yyyyMMdd-HHmmss').txt"
+        
+        @"
+        Intune Application Import Report
+        ================================
+        Date: $(Get-Date)
+        Triggered by: ${{ github.event_name }}
+        Manifest Path: ${{ github.event.inputs.manifest_path }}
+        
+        Repository: ${{ github.repository }}
+        Branch: ${{ github.ref }}
+        Commit: ${{ github.sha }}
+        
+        "@ | Out-File -FilePath $reportPath
+        
+        # List processed manifests
+        if (Test-Path ".\packages\manifests") {
+          "Manifests Found:" | Add-Content -Path $reportPath
+          Get-ChildItem -Path ".\packages\manifests" -Filter "*.json" | 
+            ForEach-Object { "  - $($_.Name)" } | 
+            Add-Content -Path $reportPath
+        }
+        
+        Write-Host "`nReport saved to: $reportPath" -ForegroundColor Cyan
+
+    - name: Upload logs
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: import-logs
+        path: |
+          *.txt
+          *.log

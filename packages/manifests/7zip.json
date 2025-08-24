@@ -1,0 +1,45 @@
+{
+  "displayName": "7-Zip 23.01 (x64)",
+  "description": "7-Zip is a free and open-source file archiver with a high compression ratio.",
+  "publisher": "Igor Pavlov",
+  "developer": "Igor Pavlov",
+  "fileName": "7z2301-x64.exe",
+  "sourceUrl": "https://www.7-zip.org/a/7z2301-x64.exe",
+  "alwaysDownload": false,
+  "informationUrl": "https://www.7-zip.org/",
+  "privacyInformationUrl": "https://www.7-zip.org/privacy.html",
+  "setupFilePath": "7z2301-x64.exe",
+  "installCommandLine": "7z2301-x64.exe /S",
+  "uninstallCommandLine": "\"%ProgramFiles%\\7-Zip\\Uninstall.exe\" /S",
+  "runAsAccount": "system",
+  "deviceRestartBehavior": "suppress",
+  "minimumFreeDiskSpaceInMB": 10,
+  "applicableArchitectures": "x64",
+  "minimumSupportedOperatingSystem": {
+    "@odata.type": "#microsoft.graph.windowsMinimumOperatingSystem",
+    "v10_1607": true
+  },
+  "rules": [
+    {
+      "@odata.type": "#microsoft.graph.win32LobAppFileSystemRule",
+      "ruleType": "detection",
+      "check32BitOn64System": false,
+      "path": "%ProgramFiles%\\7-Zip",
+      "fileOrFolderName": "7z.exe",
+      "operationType": "exists"
+    }
+  ],
+  "returnCodes": [
+    { "returnCode": 0, "type": "success" },
+    { "returnCode": 1641, "type": "hardReboot" },
+    { "returnCode": 3010, "type": "softReboot" }
+  ],
+  "assignments": [
+    {
+      "intent": "available",
+      "target": {
+        "@odata.type": "#microsoft.graph.allLicensedUsersAssignmentTarget"
+      }
+    }
+  ]
+}
