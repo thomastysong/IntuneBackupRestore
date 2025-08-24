@@ -9,7 +9,7 @@
   "informationUrl": "https://www.google.com/chrome/business/",
   "privacyInformationUrl": "https://www.google.com/chrome/privacy/",
   "setupFilePath": "ChromeStandaloneSetup64.exe",
-  "installCommandLine": "msiexec /i \"GoogleChromeStandaloneEnterprise64.msi\" /qn",
+  "installCommandLine": "ChromeStandaloneSetup64.exe /silent /install",
   "uninstallCommandLine": "msiexec /x {00000000-0000-0000-0000-000000000000} /qn",
   "runAsAccount": "system",
   "deviceRestartBehavior": "suppress",
