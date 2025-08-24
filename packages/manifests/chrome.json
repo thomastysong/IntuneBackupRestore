@@ -1,0 +1,47 @@
+{
+  "displayName": "Google Chrome Enterprise",
+  "description": "Google Chrome is a fast, secure, and free web browser built for the modern web.",
+  "publisher": "Google LLC",
+  "developer": "Google",
+  "fileName": "ChromeStandaloneSetup64.exe",
+  "sourceUrl": "https://dl.google.com/chrome/install/ChromeStandaloneSetup64.exe",
+  "alwaysDownload": false,
+  "informationUrl": "https://www.google.com/chrome/business/",
+  "privacyInformationUrl": "https://www.google.com/chrome/privacy/",
+  "setupFilePath": "ChromeStandaloneSetup64.exe",
+  "installCommandLine": "msiexec /i \"GoogleChromeStandaloneEnterprise64.msi\" /qn",
+  "uninstallCommandLine": "msiexec /x {00000000-0000-0000-0000-000000000000} /qn",
+  "runAsAccount": "system",
+  "deviceRestartBehavior": "suppress",
+  "minimumFreeDiskSpaceInMB": 350,
+  "minimumMemoryInMB": 512,
+  "applicableArchitectures": "x64",
+  "minimumSupportedOperatingSystem": {
+    "@odata.type": "#microsoft.graph.windowsMinimumOperatingSystem",
+    "v10_1607": true
+  },
+  "rules": [
+    {
+      "@odata.type": "#microsoft.graph.win32LobAppFileSystemRule",
+      "ruleType": "detection",
+      "check32BitOn64System": false,
+      "path": "%ProgramFiles%\\Google\\Chrome\\Application",
+      "fileOrFolderName": "chrome.exe",
+      "operationType": "exists"
+    }
+  ],
+  "returnCodes": [
+    { "returnCode": 0, "type": "success" },
+    { "returnCode": 1641, "type": "hardReboot" },
+    { "returnCode": 3010, "type": "softReboot" },
+    { "returnCode": 1618, "type": "retry" }
+  ],
+  "assignments": [
+    {
+      "intent": "available",
+      "target": {
+        "@odata.type": "#microsoft.graph.allLicensedUsersAssignmentTarget"
+      }
+    }
+  ]
+}

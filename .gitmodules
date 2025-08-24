@@ -1,0 +1,3 @@
+[submodule "external/intune-uploader"]
+	path = external/intune-uploader
+	url = https://github.com/almenscorner/intune-uploader.git

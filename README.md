@@ -34,6 +34,9 @@ The solution uses:
 
 ### Import Support  
 - ✅ **Applications** - Import Win32 apps from manifest + source files
+  - ✨ **Enhanced Import** - macOS apps (PKG/DMG), automatic icon extraction, LOB apps
+  - 📦 **Package Management** - Import from local files or public URLs
+  - 🤖 **GitHub Actions** - Automated deployment on manifest changes
 - 🔄 **Configuration Profiles** - Coming soon
 - 🔄 **Compliance Policies** - Coming soon
 - 🔄 **Scripts** - Coming soon
@@ -103,6 +106,39 @@ Import-Module .\src\modules\powershell\Import-Applications.ps1
 # Import applications from export
 Import-Applications -ImportPath ".\exports\Applications" -SourceFilesPath "C:\AppSources"
 ```
+
+**Enhanced Import with intune-uploader Integration:**
+```powershell
+# Import enhanced module (includes macOS app support, icon extraction)
+Import-Module .\src\modules\powershell\Import-Applications-Enhanced.ps1
+
+# Import with advanced features
+Import-Applications-Enhanced -ImportPath ".\exports\Applications" -SourceFilesPath "C:\AppSources" -ExtractIcons
+```
+
+**Package-Based Import (Recommended):**
+```powershell
+# Import from package manifests with URL support
+. .\src\modules\powershell\Import-Applications-Package.ps1
+
+# Import single app
+Import-Applications-Package -ManifestPath ".\packages\manifests\chrome.json"
+
+# Import all apps from manifests directory
+Import-Applications-Package -ManifestPath ".\packages\manifests"
+```
+
+## Package Management
+
+The package management system simplifies app deployment:
+
+1. **Create manifest** in `packages/manifests/` (see examples)
+2. **Specify source**:
+   - Local file: Place in `packages/source/` and reference with `fileName`
+   - Public URL: Add `sourceUrl` for automatic download
+3. **Run import** manually or via GitHub Actions
+
+See [packages/README.md](packages/README.md) for detailed manifest documentation.
 
 ## Development
 

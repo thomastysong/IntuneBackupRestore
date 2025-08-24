@@ -260,7 +260,8 @@ function Import-Applications {
                                 $assignmentUri = "https://graph.microsoft.com/v1.0/deviceAppManagement/mobileApps/$appId/assignments"
                                 Invoke-MgGraphRequest -Uri $assignmentUri -Method POST -Body ($assignmentData | ConvertTo-Json -Depth 10)
                                 
-                                Write-Verbose "Created assignment for group: $($targetGroup.displayName ?? $targetGroup.id)"
+                                $groupName = if ($targetGroup -and $targetGroup.displayName) { $targetGroup.displayName } else { $targetGroup.id }
+                                Write-Verbose "Created assignment for group: $groupName"
                             }
                         }
                         catch {
