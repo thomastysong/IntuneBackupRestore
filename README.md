@@ -150,7 +150,3 @@ See [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md) for detailed implementation guide
 - Credentials are managed via GitHub Secrets
 - App registration uses read-only permissions
 - No sensitive secrets are exported to the backup
-
-## Support
-
-This is an internal tool. For issues or questions, contact the Client Platform Engineering team.
