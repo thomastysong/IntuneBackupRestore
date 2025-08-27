@@ -35,7 +35,7 @@ jobs:
     
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: true
 
@@ -50,10 +50,10 @@ jobs:
         Import-Module Microsoft.Graph.Authentication
         Import-Module IntuneWin32App
 
-    - name: Connect to Microsoft Graph
+    - name: Connect and Import Applications
       shell: pwsh
       run: |
-        # Load and test connection
+        # Load and connect to Graph API
         . .\src\modules\powershell\Connect-GraphAPI.ps1
         
         if (Connect-GraphAPI) {
@@ -63,10 +63,7 @@ jobs:
         } else {
           throw "Failed to connect to Microsoft Graph"
         }
-
-    - name: Import Applications
-      shell: pwsh
-      run: |
+        
         # Load the import module
         . .\src\modules\powershell\Import-Applications-Package.ps1
         
@@ -78,8 +75,11 @@ jobs:
         
         # Determine update setting
         $updateExisting = [bool]::Parse("${{ github.event.inputs.update_existing }}")
+        if ([string]::IsNullOrEmpty("${{ github.event.inputs.update_existing }}")) {
+          $updateExisting = $true
+        }
         
-        Write-Host "Importing applications from: $manifestPath" -ForegroundColor Cyan
+        Write-Host "`nImporting applications from: $manifestPath" -ForegroundColor Cyan
         Write-Host "Update existing apps: $updateExisting" -ForegroundColor Cyan
         
         # Run import
@@ -127,9 +127,9 @@ jobs:
 
     - name: Upload logs
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: import-logs
+        name: import-logs-${{ github.run_id }}
         path: |
           *.txt
           *.log

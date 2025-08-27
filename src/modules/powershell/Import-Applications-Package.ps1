@@ -117,6 +117,20 @@ function Import-Applications-Package {
                     if ($result.value.Count -gt 0) {
                         $existingApp = $result.value[0]
                         Write-Host "  Found existing app (ID: $($existingApp.id))" -ForegroundColor Green
+                        
+                        # Check if app is published (has content uploaded)
+                        if ($existingApp.uploadState -ne 'commitFileSuccess' -and $existingApp.publishingState -ne 'published') {
+                            Write-Warning "  App exists but is not published. Deleting and recreating..."
+                            try {
+                                $deleteUri = "https://graph.microsoft.com/v1.0/deviceAppManagement/mobileApps/$($existingApp.id)"
+                                Invoke-MgGraphRequest -Uri $deleteUri -Method DELETE
+                                Write-Host "  Deleted unpublished app" -ForegroundColor Yellow
+                                $existingApp = $null
+                            }
+                            catch {
+                                Write-Warning "  Failed to delete unpublished app: $_"
+                            }
+                        }
                     }
                 }
                 
